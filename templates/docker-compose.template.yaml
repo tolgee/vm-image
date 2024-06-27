@@ -1,0 +1,26 @@
+services:
+  app:
+    image: tolgee/tolgee:latest
+    deploy:
+      restart_policy:
+        condition: unless-stopped
+    volumes:
+      - ./data:/data
+      - ./config.yaml:/config.yaml
+    ports:
+      - '80:8080'
+    environment:
+      spring.config.additional-location: file:///config.yaml
+    depends_on:
+      - db
+  db:
+    image: postgres:16
+    deploy:
+      restart_policy:
+        condition: unless-stopped
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: {postgresPassword}
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data

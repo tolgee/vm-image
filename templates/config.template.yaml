@@ -1,0 +1,12 @@
+tolgee:
+  postgres-autostart:
+    enabled: false
+  authentication:
+    enabled: true
+    initial-username: admin
+    initial-password: admin
+spring:
+  datasource:
+    url: jdbc:postgresql://db:5432/postgres
+    username: postgres
+    password: postgres
