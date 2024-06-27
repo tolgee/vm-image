@@ -8,9 +8,15 @@ When creating the new VM you need to
 1. Create the new Virtual Machine in Azure
 2. Clone contents of this repo to the `/tolgee` directory
    ```bash 
-   sudo git clone https://github.com/tolgee/vm-image.git /tolgee && cd tolgee && sudo chown -R $USER:$USER .
+   sudo git clone https://github.com/tolgee/vm-image.git /tolgee
+   cd tolgee
+   sudo chown -R $USER:$USER .
    ```
 3. Run the `sudo bash ./install.sh`
+4. Check all is running by reading the docs 
+   ```
+   docker compose logs -f
+   ```
 
 ## The installation script
 
