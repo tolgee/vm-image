@@ -15,6 +15,15 @@ When creating the new VM you need to
 3. Run the `sudo bash ./install.sh`. It
    - installs the docker
    - setup service, which will run initialization script `onFirstStart.sh` when the VM starts for the first time
+4. Inside the VM run this to deprovision the VM
+   ```bash
+   sudo waagent -deprovision+user -force
+   ```
+5. Deallocate and generalize the VM using az cli
+   ```bash
+   az vm deallocate --resource-group myResourceGroup --name myUbuntuVMNoTrustedLaunch
+   az vm generalize --resource-group myResourceGroup --name myUbuntuVMNoTrustedLaunch
+   ```
 
 ## The `onFirstStart.sh` 
 - create configs (`docker-compose.yaml` and `congig.yaml`) with generated postgres password

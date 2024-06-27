@@ -1,6 +1,6 @@
 services:
   app:
-    image: tolgee/tolgee:latest
+    image: tolgee/tolgee:{imageVersion}
     container_name: tolgee-app
     deploy:
       restart_policy:
