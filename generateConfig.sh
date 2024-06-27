@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # Function to generate a random alphanumeric string of a specified length
 generate_random_string() {
     local length="$1"

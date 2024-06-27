@@ -1,0 +1,10 @@
+[Unit]
+Description=Run On First Start Script
+
+[Service]
+Type=oneshot
+ExecStart=/tolgee/onFirstStart.sh
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target

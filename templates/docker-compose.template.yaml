@@ -17,13 +17,13 @@ services:
       - "traefik.http.services.tolgee.loadbalancer.server.port=8080"
 
       # This is for HTTP (unsencured) connection
-      # - "traefik.http.routers.tolgee.rule=HostRegexp(`.*`)"
-      # - "traefik.http.routers.tolgee.entrypoints=web"
+      - "traefik.http.routers.tolgee.rule=HostRegexp(`.*`)"
+      - "traefik.http.routers.tolgee.entrypoints=web"
 
       # This is for HTTPS (secured) connection
-      - "traefik.http.routers.tolgee.rule=Host(`vmtest.tolgee.io`)"
-      - "traefik.http.routers.tolgee.entrypoints=websecure"
-      - "traefik.http.routers.tolgee.tls.certresolver=myresolver"
+      # - "traefik.http.routers.tolgee.rule=Host(`vmtest.tolgee.io`)"
+      # - "traefik.http.routers.tolgee.entrypoints=websecure"
+      # - "traefik.http.routers.tolgee.tls.certresolver=myresolver"
 
   traefik:
     image: "traefik:v3.0"
@@ -34,19 +34,19 @@ services:
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       # This is for HTTP (unsencured) connection
-      # - "--entryPoints.web.address=:80"
-      - "--entryPoints.websecure.address=:443"
+      - "--entryPoints.web.address=:80"
 
       # This is for HTTPS (secured) connection
-      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
-      - "--certificatesresolvers.myresolver.acme.email=cizmar@tolgee.io"
-      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+      # - "--entryPoints.websecure.address=:443"
+      # - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      # - "--certificatesresolvers.myresolver.acme.email=cizmar@tolgee.io"
+      # - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
 
       # To enable access logging
       # - "--accesslog=true"
       # - "--accesslog.filePath=/logs/access.log"
     ports:
-      #      - "80:80"
+      - "80:80"
       - "443:443"
       - "8080:8080"
     volumes:

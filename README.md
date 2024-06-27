@@ -12,25 +12,14 @@ When creating the new VM you need to
    cd tolgee
    sudo chown -R $USER:$USER .
    ```
-3. Run the `sudo bash ./install.sh`
-4. Check all is running by reading the docs 
-   ```
-   docker compose logs -f
-   ```
+3. Run the `sudo bash ./install.sh`. It
+   - installs the docker
+   - setup service, which will run initialization script `onFirstStart.sh` when the VM starts for the first time
 
-## The installation script
-
-You can run
-
-```bash
-sudo ./install
-```
-
-to
-
-1. install docker
-2. create configs (`docker-compose.yaml` and `congig.yaml`) with generated postgres password
-3. run the docker containers
+## The `onFirstStart.sh` 
+- create configs (`docker-compose.yaml` and `congig.yaml`) with generated postgres password
+- run the docker containers
+- runs cleanup script (which also removes the onFirstStart script and service)
 
 ## The reset script
 
