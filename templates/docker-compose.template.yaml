@@ -1,20 +1,61 @@
 services:
   app:
     image: tolgee/tolgee:latest
+    container_name: tolgee-app
     deploy:
       restart_policy:
         condition: unless-stopped
     volumes:
       - ./data:/data
       - ./config.yaml:/config.yaml
-    ports:
-      - '80:8080'
     environment:
       spring.config.additional-location: file:///config.yaml
     depends_on:
       - db
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.tolgee.loadbalancer.server.port=8080"
+
+      # This is for HTTP (unsencured) connection
+      # - "traefik.http.routers.tolgee.rule=HostRegexp(`.*`)"
+      # - "traefik.http.routers.tolgee.entrypoints=web"
+
+      # This is for HTTPS (secured) connection
+      - "traefik.http.routers.tolgee.rule=Host(`vmtest.tolgee.io`)"
+      - "traefik.http.routers.tolgee.entrypoints=websecure"
+      - "traefik.http.routers.tolgee.tls.certresolver=myresolver"
+
+  traefik:
+    image: "traefik:v3.0"
+    container_name: "tolgee-traefik"
+    command:
+      # - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      # This is for HTTP (unsencured) connection
+      # - "--entryPoints.web.address=:80"
+      - "--entryPoints.websecure.address=:443"
+
+      # This is for HTTPS (secured) connection
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=cizmar@tolgee.io"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+
+      # To enable access logging
+      # - "--accesslog=true"
+      # - "--accesslog.filePath=/logs/access.log"
+    ports:
+      #      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - ./logs/:/logs/
+      - "./letsencrypt:/letsencrypt"
   db:
     image: postgres:16
+    container_name: tolgee-db
     deploy:
       restart_policy:
         condition: unless-stopped
