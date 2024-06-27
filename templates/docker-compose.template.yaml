@@ -21,7 +21,7 @@ services:
       - "traefik.http.routers.tolgee.entrypoints=web"
 
       # This is for HTTPS (secured) connection
-      # - "traefik.http.routers.tolgee.rule=Host(`vmtest.tolgee.io`)"
+      # - "traefik.http.routers.tolgee.rule=Host(`example.com`)"
       # - "traefik.http.routers.tolgee.entrypoints=websecure"
       # - "traefik.http.routers.tolgee.tls.certresolver=myresolver"
 
@@ -39,7 +39,7 @@ services:
       # This is for HTTPS (secured) connection
       # - "--entryPoints.websecure.address=:443"
       # - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
-      # - "--certificatesresolvers.myresolver.acme.email=cizmar@tolgee.io"
+      # - "--certificatesresolvers.myresolver.acme.email=<your e-mail>"
       # - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
 
       # To enable access logging
@@ -53,6 +53,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - ./logs/:/logs/
       - "./letsencrypt:/letsencrypt"
+
   db:
     image: postgres:16
     container_name: tolgee-db
