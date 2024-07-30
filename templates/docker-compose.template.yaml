@@ -27,6 +27,9 @@ services:
 
   traefik:
     image: "traefik:v3.0"
+    deploy:
+      restart_policy:
+        condition: unless-stopped
     container_name: "tolgee-traefik"
     command:
       # - "--log.level=DEBUG"

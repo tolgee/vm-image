@@ -1,10 +1,6 @@
 #!/bin/bash
 
-rm README.md
 rm -rf templates
-rm .gitignore
-rm -rf .git
-rm -rf reset.sh
 rm -rf cleanup.sh
 rm -rf install.sh
 rm -rf generateConfig.sh

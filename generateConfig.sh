@@ -2,6 +2,9 @@
 
 set -e
 
+export LC_CTYPE=C
+export LANG=C
+
 # Function to generate a random alphanumeric string of a specified length
 generate_random_string() {
     local length="$1"

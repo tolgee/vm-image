@@ -27,10 +27,6 @@ echo "Installing Docker..."
 # Install Docker
 apt-get install docker-ce docker-ce-cli containerd.io -y
 
-echo "Adding the current user to the docker group..."
-# Add the current user to the docker group
-usermod -aG docker azureuser
-
 echo "Enabling startup script..."
 # Enable startup script so it's run on the first start
 chmod +x onFirstStart.sh
